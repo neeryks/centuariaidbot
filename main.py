@@ -23,6 +23,11 @@ async def on_message(message):
             pic = discord.File(imager)
             await message.channel.send(file = pic)
 
+    elif message.content.startswith(".c"):
+        data = Responder()
+        ndat = data.code_complete(f"{message.content}")
+        await message.channel.send(f'{ndat.choices[0].text}')
+
     elif message.content.startswith(''):
         data = Responder()
         ndat = data.text_complete(f"{message.content}")
