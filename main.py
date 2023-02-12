@@ -73,13 +73,15 @@ async def on_message(message):
                 for i in q:
                     await message.channel.send(i)
         else:
-            q =  people_also_ask.get_related_questions(f"{message.content[5:-2]}")
+            q =  people_also_ask.get_related_questions(f"{message.content[5::]}")
             for i in q:
                 await message.channel.send(i)
+        await message.channel.send("Request Processed, Ask Another After 5min from .paa")
 
-        
-        await message.channel.send("Request Processed, Ask Another After 5min")
-        
+    elif message.content.startswith(".ask"):
+        q= people_also_ask.get_simple_answer(f"{message.content[5::]}")
+        await message.channel.send(q)
+        await message.channel.send("Request Processed, Ask Another After 15sec from .ask")
 
 
 
