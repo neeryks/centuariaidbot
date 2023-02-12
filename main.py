@@ -85,7 +85,7 @@ async def on_message(message):
         await message.channel.send("Request Processed, Ask Another After 15sec from .ask")
     
     elif message.content.startswith(".update"):
-        os.system("cd")
+        os.system("cd ~/")
         os.system("./update.sh")
         
 
