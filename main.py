@@ -2,6 +2,7 @@ import discord
 from process import Responder
 import people_also_ask
 import time
+import os
 
 
 intents = discord.Intents.default()
@@ -42,7 +43,7 @@ async def on_message(message):
     elif message.content.startswith('.blog'):
         data = Responder()
         meta_title = data.text_complete(f"meta title on {message.content[6::]}").choices[0].text
-        cont_outline = data.text_complete(f"blog outlne and idea on {meta_title}").choices[0].text
+        cont_outline = data.text_complete(f"blog outlne on {meta_title}").choices[0].text
         #print(cont_outline)
         cont_list = list(cont_outline.split("\n"))
         with open(f"blog.txt","a+") as blog_file:
@@ -82,6 +83,11 @@ async def on_message(message):
         q= people_also_ask.get_simple_answer(f"{message.content[5::]}")
         await message.channel.send(q)
         await message.channel.send("Request Processed, Ask Another After 15sec from .ask")
+    
+    elif message.content.startswith(".update"):
+        os.system("cd")
+        os.system("python3 update.py")
+        
 
 
 
