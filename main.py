@@ -55,7 +55,7 @@ async def on_message(message):
         await message.channel.send(file=textfile)
         f= open("blog.txt","+r")
         f.truncate(0)
-    
+# Added Support for PAA
     elif message.content.startswith(".paa"):
         if message.content[-1].isdigit():
             if message.content[4:8]=="-txt":
@@ -78,7 +78,7 @@ async def on_message(message):
                 await message.channel.send(i)
 
         
-        await message.channel.send("...")
+        await message.channel.send("Request Processed, Ask Another After 5min")
         
 
 
