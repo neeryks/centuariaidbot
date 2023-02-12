@@ -86,7 +86,7 @@ async def on_message(message):
     
     elif message.content.startswith(".update"):
         os.system("cd")
-        os.system("python3 update.py")
+        os.system("./update.sh")
         
 
 
