@@ -1,11 +1,16 @@
 import discord
 from process import Responder
+import people_also_ask
+import time
 
 
 intents = discord.Intents.default()
 intents.message_content = True
 
 client = discord.Client(intents=intents)
+@people_also_ask.generate_related_questions
+def slp():
+    return time.sleep(3)
 
 @client.event
 async def on_ready():
@@ -50,7 +55,32 @@ async def on_message(message):
         await message.channel.send(file=textfile)
         f= open("blog.txt","+r")
         f.truncate(0)
+    
+    elif message.content.startswith(".paa"):
+        if message.content[-1].isdigit():
+            if message.content[4:8]=="-txt":
+                q =  people_also_ask.get_related_questions(f"{message.content[8:-2]}",int(message.content[-2::]) )
+                for i in q:
+                    with open("kwd-paa.txt","+a") as fl:
+                        fl.write(f"{i}\n")
+                txtfile = discord.File("kwd-paa.txt")
+                await message.channel.send(file=txtfile)
+                f = open("kwd-paa.txt","+r")
+                f.truncate()
+
+            else:
+                q =  people_also_ask.get_related_questions(f"{message.content[5:-2]}",int(message.content[-2::]) )
+                for i in q:
+                    await message.channel.send(i)
+        else:
+            q =  people_also_ask.get_related_questions(f"{message.content[5:-2]}")
+            for i in q:
+                await message.channel.send(i)
+
         
+        await message.channel.send("...")
+        
+
 
 
 client.run('MTA3MjQ3MTI2ODE0MzY4MTYxNw.GDsp2m.DyxCXG5ZlwSoHWUugbD-TzMBDXLrbhTfNmxHR4')
