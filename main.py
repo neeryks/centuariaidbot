@@ -4,6 +4,7 @@ import people_also_ask
 import time
 import os
 from dman import DataExtractor
+from blogwrite import BlogAi
 
 
 intents = discord.Intents.default()
@@ -42,23 +43,9 @@ async def on_message(message):
         await message.channel.send(f'{ndat.choices[0].text}')
     
     elif message.content.startswith('.blog'):
-        data = Responder()
-        meta_title = data.text_complete(f"meta title on {message.content[6::]}").choices[0].text
-        cont_outline = data.text_complete(f"blog outlne on {meta_title}").choices[0].text
-        #print(cont_outline)
-        cont_list = list(cont_outline.split("\n"))
-        for i in cont_list:
-            await message.channel.send(i)
-        with open(f"blog.txt","a+") as blog_file:
-            blog_file.write(f"<h1>{cont_outline}</h1>\n")
-            for li in cont_list:
-                section = data.text_complete(f"blog section on {li}").choices[0].text
-                blog_file.write(f"<h2>{li}</h2>\n")
-                blog_file.write(f"{section}\n")
-        textfile = discord.File("blog.txt")
+        textfile = discord.File(BlogAi(message.content[6::]).section_writer())
         await message.channel.send(file=textfile)
-        f= open("blog.txt","+r")
-        f.truncate(0)
+        
 # Added Support for PAA
     elif message.content.startswith(".paa"):
         if message.content[-1].isdigit():
@@ -76,6 +63,18 @@ async def on_message(message):
                 q =  people_also_ask.get_related_questions(f"{message.content[5:-2]}",int(message.content[-2::]) )
                 for i in q:
                     await message.channel.send(i)
+
+        elif message.content[4:9]=="-list":
+            path = "dataset/paa"
+            dir_list = os.listdir(path)
+            await message.channel.send(dir_list)
+            await message.channel.send("To View PAA's Enter : .paa-ds [filename] [Number of Queries]")
+
+        elif message.content[4:7]=="-ds":
+            contline = message.content.split(" ")
+            datset = DataExtractor()
+            await message.channel.send(datset.file_reader(contline[1],contline[2]))
+            
         else:
             q =  people_also_ask.get_related_questions(f"{message.content[5::]}")
             for i in q:
@@ -91,7 +90,6 @@ async def on_message(message):
         os.system("cd ~/")
         os.system("./update.sh")
         
-
 
 
 client.run('MTA3MjQ3MTI2ODE0MzY4MTYxNw.GDsp2m.DyxCXG5ZlwSoHWUugbD-TzMBDXLrbhTfNmxHR4')
