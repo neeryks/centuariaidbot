@@ -28,7 +28,7 @@ class BlogAi(Responder):
                     blog_section = self.text_complete(f"write a blog section on {i}").choices[0].text
                     blog_post.write(f"{i}\n")
                     blog_post.write(f"{blog_section}\n")
-        return f"{self.topic}.txt"
+        return f"dataset/{self.topic}.txt"
 
  
 
