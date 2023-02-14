@@ -3,6 +3,7 @@ from process import Responder
 import people_also_ask
 import time
 import os
+from dman import DataExtractor
 
 
 intents = discord.Intents.default()
@@ -46,6 +47,8 @@ async def on_message(message):
         cont_outline = data.text_complete(f"blog outlne on {meta_title}").choices[0].text
         #print(cont_outline)
         cont_list = list(cont_outline.split("\n"))
+        for i in cont_list:
+            await message.channel.send(i)
         with open(f"blog.txt","a+") as blog_file:
             blog_file.write(f"<h1>{cont_outline}</h1>\n")
             for li in cont_list:
