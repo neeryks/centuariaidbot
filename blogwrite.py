@@ -5,10 +5,7 @@ import openai
 class BlogAi(Responder,Auth):
     def __init__(self,topic) -> None:
         self.topic = topic
-        openai.api_key = self.openai_token()
-        
-        
-        
+        openai.api_key = self.openai_token()     
 
     def outline_maker(self):
 

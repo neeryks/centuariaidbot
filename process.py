@@ -5,8 +5,7 @@ import requests
 from auth import Auth
 class Responder(Auth):
     def __init__(self,) -> None:
-        openai.api_key = self.openai_token()
-    
+        openai.api_key = self.openai_token()   
     
     def text_complete(self,rpr):
         response = openai.Completion.create(
@@ -37,6 +36,7 @@ class Responder(Auth):
             max_tokens=800  
         )
         return response
+    
     def test():
         pass
 
