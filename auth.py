@@ -1,5 +1,5 @@
 class Auth:
-    def openai_token():
+    def openai_token(self):
         return "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"
     
     def discord_token():

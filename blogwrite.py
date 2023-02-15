@@ -1,8 +1,13 @@
 from process import Responder
+from auth import Auth
+import openai
 
-class BlogAi(Responder):
+class BlogAi(Responder,Auth):
     def __init__(self,topic) -> None:
         self.topic = topic
+        openai.api_key = self.openai_token()
+        
+        
         
 
     def outline_maker(self):
@@ -13,7 +18,7 @@ class BlogAi(Responder):
     def section_writer(self):
         list_data = self.outline_maker()
         with open(f"dataset/saved_blogs/{self.topic}.txt","+a") as blog_post:
-            blog_title = self.text_complete(f"write a blog title on {i}").choices[0].text
+            blog_title = self.text_complete(f"write a blog title on {self.topic}").choices[0].text
             blog_post.write(blog_title)
             for i in list_data:
                 if i == '':
