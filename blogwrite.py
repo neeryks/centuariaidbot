@@ -13,7 +13,8 @@ class BlogAi(Responder):
     def section_writer(self):
         list_data = self.outline_maker()
         with open(f"dataset/saved_blogs/{self.topic}.txt","+a") as blog_post:
-            blog_post.write(self.topic)
+            blog_title = self.text_complete(f"write a blog title on {i}").choices[0].text
+            blog_post.write(blog_title)
             for i in list_data:
                 if i == '':
                     blog_post.write("\n")

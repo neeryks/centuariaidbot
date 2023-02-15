@@ -87,7 +87,7 @@ async def on_message(message):
         
 
 
-client.run('MTA3MjQ3MTI2ODE0MzY4MTYxNw.GDsp2m.DyxCXG5ZlwSoHWUugbD-TzMBDXLrbhTfNmxHR4')
+client.run(Auth.discord_token())
 
     
 
