@@ -2,10 +2,10 @@
 import os
 import openai
 import requests
-
+from auth import Auth
 class Responder():
     def __init__(self) -> None:
-        openai.api_key = "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"
+        openai.api_key = Auth.openai_token()
     
     def text_complete(self,rpr):
         response = openai.Completion.create(

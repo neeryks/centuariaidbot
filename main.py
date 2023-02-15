@@ -1,19 +1,14 @@
 import discord
 from process import Responder
 import people_also_ask
-import time
 import os
 from dman import DataExtractor
 from blogwrite import BlogAi
-
+from auth import Auth
 
 intents = discord.Intents.default()
 intents.message_content = True
-
 client = discord.Client(intents=intents)
-@people_also_ask.generate_related_questions
-def slp():
-    return time.sleep(3)
 
 @client.event
 async def on_ready():
@@ -93,3 +88,6 @@ async def on_message(message):
 
 
 client.run('MTA3MjQ3MTI2ODE0MzY4MTYxNw.GDsp2m.DyxCXG5ZlwSoHWUugbD-TzMBDXLrbhTfNmxHR4')
+
+    
+
