@@ -17,7 +17,7 @@ class BlogAi(Responder,Auth):
     
     def section_writer(self):
         list_data = self.outline_maker()
-        with open(f"dataset/saved_blogs/{self.topic}.txt","+a") as blog_post:
+        with open(f"dataset/saved_blogs/{self.topic}.txt","a+") as blog_post:
             blog_title = self.text_complete(f"write a blog title on {self.topic}").choices[0].text
             blog_post.write(blog_title)
             for i in list_data:
