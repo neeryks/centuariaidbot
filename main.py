@@ -47,11 +47,11 @@ async def on_message(message):
             if message.content[4:8]=="-txt":
                 q =  people_also_ask.get_related_questions(f"{message.content[8:-2]}",int(message.content[-2::]) )
                 for i in q:
-                    with open("kwd-paa.txt","+a") as fl:
+                    with open("kwd-paa.txt","a+") as fl:
                         fl.write(f"{i}\n")
                 txtfile = discord.File("kwd-paa.txt")
                 await message.channel.send(file=txtfile)
-                f = open("kwd-paa.txt","+r")
+                f = open("kwd-paa.txt","r+")
                 f.truncate()
 
             else:
