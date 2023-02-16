@@ -19,30 +19,30 @@ async def on_message(message):
     if message.author == client.user:
         return
     
-    if message.content.startswith(".i"):
+    if message.content.startswith("/i"):
         data = Responder()
         data.img_complete(f"{message.content[2::]}")
         with open("img.jpg","rb") as imager:
             pic = discord.File(imager)
             await message.channel.send(file = pic)
 
-    elif message.content.startswith(".c"):
+    elif message.content.startswith("/c"):
         data = Responder()
         await message.channel.send("From Codex...")
         ndat = data.code_complete(f"{message.content[2::]}")
         await message.channel.send(f'{ndat.choices[0].text}')
 
-    elif message.content.startswith('.t'):
+    elif message.content.startswith('/t'):
         data = Responder()
         ndat = data.text_complete(f"{message.content[2::]}")
         await message.channel.send(f'{ndat.choices[0].text}')
     
-    elif message.content.startswith('.blog'):
+    elif message.content.startswith('/blog'):
         textfile = discord.File(BlogAi(message.content[6::]).section_writer())
         await message.channel.send(file=textfile)
         
 # Added Support for PAA
-    elif message.content.startswith(".paa"):
+    elif message.content.startswith("/paa"):
         if message.content[-1].isdigit():
             if message.content[4:8]=="-txt":
                 q =  people_also_ask.get_related_questions(f"{message.content[8:-2]}",int(message.content[-2::]) )
@@ -76,12 +76,12 @@ async def on_message(message):
                 await message.channel.send(i)
         await message.channel.send("Request Processed, Ask Another After 5min from .paa")
 
-    elif message.content.startswith(".ask"):
+    elif message.content.startswith("/ask"):
         q= people_also_ask.get_simple_answer(f"{message.content[5::]}")
         await message.channel.send(q)
         await message.channel.send("Request Processed, Ask Another After 15sec from .ask")
     
-    elif message.content.startswith(".update"):
+    elif message.content.startswith("/update"):
         os.system("cd ~/")
         os.system("./update.sh")
         

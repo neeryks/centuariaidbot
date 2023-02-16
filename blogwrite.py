@@ -11,7 +11,7 @@ class BlogAi(Responder,Auth):
 
         outline = self.text_complete(f"blog outline on {self.topic}").choices[0].text
         return outline.split("\n")
-    
+       
     def section_writer(self):
         list_data = self.outline_maker()
         with open(f"dataset/saved_blogs/{self.topic}.txt","a+") as blog_post:
