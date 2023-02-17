@@ -3,8 +3,9 @@ from process import Responder
 import people_also_ask
 import os
 from dman import DataExtractor
-from blogwrite import BlogAi
+from blogwrite import BlogAi,section_maker
 from auth import Auth
+
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -38,8 +39,22 @@ async def on_message(message):
         await message.channel.send(f'{ndat.choices[0].text}')
     
     elif message.content.startswith('/blog'):
-        textfile = discord.File(BlogAi(message.content[6::]).section_writer())
-        await message.channel.send(file=textfile)
+        if message.content[5:8] == "txt":
+            textfile = discord.File(BlogAi(message.content[8::]).section_writer_txt())
+            await message.channel.send(file=textfile)
+        elif message.content[5:9]=="full":
+            await message.channel.send(BlogAi(message.content[9::]).title())
+            for i in BlogAi(message.content[9::]).outline_maker().split("\n"):
+                data = section_maker(i)
+                await message.channel.send(data)
+        elif message.content[5:8]=="sec":
+            data = section_maker(message.content[8::])
+            return await message.channel.send(data)          
+            
+        else:
+            await message.channel.send(BlogAi(message.content[6::]).outline_maker())
+            
+
         
 # Added Support for PAA
     elif message.content.startswith("/paa"):

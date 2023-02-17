@@ -1,0 +1,10 @@
+
+
+Supervised learning: algorithms and techniques for learning from data
+
+Supervised learning is a type of machine learning algorithm that learns from a set of training data that has been labeled with the desired outputs. The algorithm is then able to predict the outputs for new data. Supervised learning algorithms can be used for tasks such as regression (predicting a continuous value) or classification (predicting a categorical value).
+
+
+One of the most popular supervised learning algorithms is linear regression. Linear regression is used to predict a continuous value based on a set of input data. The algorithm learns a linear function that best fits the data. Another popular supervised learning algorithm is logistic regression, which is used to predict a categorical value (e.g. whether a customer will buy a product or not).
+
+Supervised learning algorithms can be used to improve predictions over time by adjusting the function that is learned based on feedback from the labeled data. This process is known as “learning” or “training” the algorithm.

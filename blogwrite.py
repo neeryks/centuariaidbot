@@ -10,12 +10,12 @@ class BlogAi(Responder,Auth):
     def outline_maker(self):
 
         outline = self.text_complete(f"blog outline on {self.topic}").choices[0].text
-        return outline.split("\n")
+        return outline
        
-    def section_writer(self):
-        list_data = self.outline_maker()
+    def section_writer_txt(self):
+        list_data = self.outline_maker().split("\n")
         with open(f"dataset/saved_blogs/{self.topic}.txt","a+") as blog_post:
-            blog_title = self.text_complete(f"write a blog title on {self.topic}").choices[0].text
+            blog_title = self.title()
             blog_post.write(blog_title)
             for i in list_data:
                 if i == '':
@@ -31,6 +31,20 @@ class BlogAi(Responder,Auth):
                     blog_post.write(f"{i}\n")
                     blog_post.write(f"{blog_section}\n")
         return f"dataset/saved_blogs/{self.topic}.txt"
+        
+    def title(self):
+        blog_title = self.text_complete(f"write a blog title on {self.topic}").choices[0].text
+        return blog_title
+    
+def section_maker(section_topic):
+    if section_topic == "" and section_topic.startswith("-"):
+        blog_section = "-----------------"
+    else:
+        obj = Responder()
+        blog_section = obj.text_complete(f"write a blog section on {section_topic}").choices[0].text
+    return blog_section
+
+
 
  
 
