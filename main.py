@@ -36,7 +36,7 @@ async def on_message(message):
     elif message.content.startswith('/t'):
         data = Responder()
         ndat = data.text_complete(f"{message.content[2::]}")
-        await message.channel.send(f'{ndat.choices[0].text}')
+        await message.channel.send(f'{ndat}')
     
     elif message.content.startswith('/blog'):
         if message.content[5:8] == "txt":
